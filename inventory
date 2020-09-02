@@ -15,3 +15,17 @@ scr-jump-1 ansible_python_interpreter=/usr/bin/python3
 
 [nnj]
 nnj-gateway-1
+
+[docker]
+nwk1-app-1
+nwk2-app-1
+nyc1-app-1
+
+[ipa]
+den
+nyc1-ipa-2
+
+[home:children]
+nwk1
+nwk2
+scr
