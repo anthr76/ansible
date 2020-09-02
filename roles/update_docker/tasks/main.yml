@@ -2,3 +2,8 @@
   shell:
     chdir: /docker/
     cmd: "{{ docker_update_command }}"
+  register: output
+
+- name: Output docker-compose
+  debug:
+    var: output.stdout
