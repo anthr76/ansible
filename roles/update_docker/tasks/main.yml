@@ -1,0 +1,4 @@
+- name: Update docker containers
+  shell:
+    chdir: /docker/
+    cmd: "{{ docker_update_command }}"

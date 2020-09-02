@@ -1,0 +1,1 @@
+docker_update_command: docker-compose pull && docker image prune -f && docker container prune -f && docker volume prune -f && docker-compose rm && docker-compose up -d --remove-orphans

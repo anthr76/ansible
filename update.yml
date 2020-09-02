@@ -21,6 +21,11 @@
   roles:
     - upgrade
 
+- hosts: docker
+  become: false
+  roles:
+    - update_docker
+
 - hosts: nnj
   become: true
   roles:
