@@ -4,6 +4,6 @@
     cmd: "{{ docker_update_command }}"
   register: output
 
-- name: Output docker-compose
+- name: Output docker space reclaimed
   debug:
-    var: output.stdout
+    var: output.stdout_lines
