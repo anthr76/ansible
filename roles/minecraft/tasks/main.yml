@@ -6,7 +6,7 @@
     owner: 'anthony'
     group: 'dockerfs'
     force: true
-  register: result
+  notify: restart minecraft server stack
 
 - name: Download latest SkinsRestorer plugin on waterfall
   get_url:
@@ -16,7 +16,7 @@
     owner: 'anthony'
     group: 'dockerfs'
     force: true
-  register: result
+  notify: restart minecraft server stack
 
 - name: Download 5.1.107 BungeeCord LuckPerms on waterfall
   get_url:
@@ -26,7 +26,7 @@
     owner: 'anthony'
     group: 'dockerfs'
     force: true
-  register: result
+  notify: restart minecraft server stack
 
 - name: Download 1.9.5 Multichat on waterfall
   get_url:
@@ -36,7 +36,7 @@
     owner: 'anthony'
     group:  'dockerfs'
     force: true
-  register: result
+  notify: restart minecraft server stack
 
 - name: Download 3.4.1 BungeeTabListPlus on waterfall
   get_url:
@@ -46,7 +46,7 @@
     owner: 'anthony'
     group:  'dockerfs'
     force: true
-  register: result
+  notify: restart minecraft server stack
 
 - name: Download 3.4.1 BungeeTabListPlus (Bukkit Bridge) on mc-server-1
   get_url:
@@ -56,7 +56,7 @@
     owner: 'anthony'
     group:  'dockerfs'
     force: true
-  register: result
+  notify: restart minecraft server stack
 
 - name: Download 3.1-beta-2 Dynmap on mc-server-1
   get_url:
@@ -66,7 +66,7 @@
     owner: 'anthony'
     group:  'dockerfs'
     force: true
-  register: result    
+  notify: restart minecraft server stack    
 
 - name: Download EssentialsX-2.18.1.0 on mc-server-1
   get_url:
@@ -76,7 +76,7 @@
     owner: 'anthony'
     group:  'dockerfs'
     force: true
-  register: result
+  notify: restart minecraft server stack
 
 - name: Download EssentialsXAntiBuild-2.18.1.0 on mc-server-1
   get_url:
@@ -86,7 +86,7 @@
     owner: 'anthony'
     group:  'dockerfs'
     force: true
-  register: result
+  notify: restart minecraft server stack
 
 - name: Download EssentialsXGeoIP-2.18.1.0 on mc-server-1
   get_url:
@@ -96,7 +96,7 @@
     owner: 'anthony'
     group:  'dockerfs'
     force: true
-  register: result
+  notify: restart minecraft server stack
 
 - name: Download EssentialsXSpawn-2.18.1.0 on mc-server-1
   get_url:
@@ -106,7 +106,7 @@
     owner: 'anthony'
     group:  'dockerfs'
     force: true
-  register: result
+  notify: restart minecraft server stack
 
 - name: Download 5.1.107 LuckPerms on mc-server-1
   get_url:
@@ -116,7 +116,7 @@
     owner: 'anthony'
     group:  'dockerfs'
     force: true
-  register: result
+  notify: restart minecraft server stack
 
 - name: Download 1.9.5 Multichat on mc-server-1
   get_url:
@@ -125,17 +125,18 @@
     mode: '0644'
     owner: 'anthony'
     group:  'dockerfs'
-  register: result
+  notify: restart minecraft server stack
 
-- name: Download latest SkinsRestorer plugin on mc-server-1
+# Latest https://github.com/SkinsRestorer/SkinsRestorerX/releases/latest/download/SkinsRestorer.jar (need to lock a version for floodgate)  
+- name: Download 13.8.3 SkinsRestorer plugin on mc-server-1
   get_url:
-    url: https://github.com/SkinsRestorer/SkinsRestorerX/releases/latest/download/SkinsRestorer.jar
+    url: https://github.com/SkinsRestorer/SkinsRestorerX/releases/download/13.8.3/SkinsRestorer.jar
     dest: /docker/mcnew/mc-server-1/plugins/SkinsRestorer.jar
     mode: '0644'
     owner: 'anthony'
     group:  'dockerfs'
     force: true
-  register: result
+  notify: restart minecraft server stack
 
 - name: Download latest vault plugin on mc-server-1
   get_url:
@@ -145,17 +146,27 @@
     owner: 'anthony'
     group:  'dockerfs'
     force: true
-  register: result
+  notify: restart minecraft server stack
 
-- name: Download latest Geyser plugin on waterfall
+- name: Download latest Floodgate plugin on waterfall
   get_url:
-    url: https://ci.nukkitx.com/job/GeyserMC/job/Geyser/job/master/lastSuccessfulBuild/artifact/bootstrap/bungeecord/target/Geyser-BungeeCord.jar
-    dest: /docker/mcnew/waterfall/plugins/Geyser-BungeeCord.jar
+    url: https://ci.nukkitx.com/job/GeyserMC/job/Floodgate/job/development/lastSuccessfulBuild/artifact/bungee/target/floodgate-bungee.jar
+    dest: /docker/mcnew/waterfall/plugins/floodgate-bungee.jar
     mode: '0644'
     owner: 'anthony'
     group:  'dockerfs'
     force: true
-  register: result
+  notify: restart minecraft server stack
+
+# - name: Download latest Floodgate plugin on mc-server-1
+#   get_url:
+#     url: https://ci.nukkitx.com/job/GeyserMC/job/Floodgate/job/development/lastStableBuild/artifact/common/target/floodgate-common.jar
+#     dest: /docker/mcnew/mc-server-1/plugins/floodgate-common.jar
+#     mode: '0644'
+#     owner: 'anthony'
+#     group:  'dockerfs'
+#     force: true
+#   notify: restart minecraft server stack
 
 # - name: Download 4.6.3 sleepmost plugin on mc-server-1
 #   get_url:
@@ -164,15 +175,3 @@
 #     mode: '0644'
 #     owner: 'anthony'
 #     group:  'dockerfs'
-
-- name: Announce mincraft server restart
-  shell:
-    cmd: "{{ broadcast_minecraft_server_reboot }}"
-  register: output
-  when: result.changed
-
-- name: Restart minecraft server stack
-  shell:
-    cmd: "{{ restart_minecraft_command }}"
-  register: output
-  when: result.changed

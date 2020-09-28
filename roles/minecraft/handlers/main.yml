@@ -1,0 +1,4 @@
+- name: restart minecraft server stack
+  shell:
+    cmd: "{{ restart_minecraft_command }}"
+  register: output

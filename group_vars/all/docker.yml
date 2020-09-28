@@ -3,5 +3,4 @@ docker_compose_pull: docker-compose pull
 prune_images_and_containers: docker image prune -f && docker container prune -f
 docker_compose_prune: docker-compose rm
 docker_compose_up: docker-compose up -d --remove-orphans --compatibility
-restart_minecraft_command: docker restart minecraft-waterfall && docker restart mc-server-1
-broadcast_minecraft_server_reboot: docker exec -i mc-server-1 rcon-cli broadcast Network is going for a reboot due to automated updates now!
+restart_minecraft_command: docker exec -i mc-server-1 rcon-cli broadcast Network is going for a reboot due to automated updates now! && docker restart minecraft-waterfall && docker restart mc-server-1
