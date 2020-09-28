@@ -1,0 +1,6 @@
+---
+- hosts: router
+  become: true
+  connection: network_cli
+  tasks:
+

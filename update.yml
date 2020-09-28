@@ -26,6 +26,11 @@
   roles:
     - update_docker
 
+- hosts: minecraft
+  become: true
+  roles:
+    - minecraft
+
 - hosts: nnj
   become: true
   roles:
