@@ -1,5 +1,9 @@
 [nwk1]
 nwk1-app-1
+k3s-master-1 ansible_user=pi
+k3s-worker-1 ansible_user=pi
+k3s-worker-2 ansible_user=pi
+k3s-worker-3 ansible_user=pi
 
 [nwk2]
 nwk2-app-1
